@@ -1,4 +1,4 @@
-// popup.js - Загрузчик динамического UI
+// popup.js - Загрузчик динамического UI (безопасный)
 let isInitialized = false;
 
 async function initializeDynamicPopup() {
@@ -20,7 +20,7 @@ async function initializeDynamicPopup() {
                 document.head.appendChild(style);
             }
             
-            // Создаем и выполняем код
+            // БЕЗОПАСНЫЙ СПОСОБ: создаем script element
             const script = document.createElement('script');
             script.textContent = `
                 (function() {
@@ -96,10 +96,8 @@ function initializeLocalPopup() {
             
             chrome.tabs.sendMessage(tabs[0].id, {action: 'toggle_inspector'}, response => {
                 if (chrome.runtime.lastError) {
-                    chrome.scripting.executeScript({
-                        target: {tabId: tabs[0].id},
-                        func: injectContentScript
-                    });
+                    // Инжектируем dynamic script через background
+                    chrome.runtime.sendMessage({ action: 'injectContentScript', tabId: tabs[0].id });
                     updateButton(true);
                 } else if (response) {
                     updateButton(response.active);
@@ -159,17 +157,6 @@ function initializeLocalPopup() {
             }
         });
     });
-}
-
-async function injectContentScript() {
-    try {
-        const response = await chrome.runtime.sendMessage({ action: 'getLatestCode' });
-        if (response && response.content) {
-            eval(response.content);
-        }
-    } catch (error) {
-        console.error('❌ Ошибка инъекции:', error);
-    }
 }
 
 document.addEventListener('DOMContentLoaded', initializeDynamicPopup);
