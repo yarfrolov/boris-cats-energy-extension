@@ -1,12 +1,11 @@
 {
-  "version": "1.2.0",
+  "version": "1.2.0", 
   "lastUpdated": "2025-09-25T17:00:00Z",
   "files": {
     "content": "content-v1.2.js",
-    "popup": "popup-v1.2.js",
+    "popup": "popup-v1.2.js", 
     "styles": "styles-v1.2.css"
-  }
-},
+  },
   "features": {
     "classCollapsing": true,
     "elementSizes": true,
@@ -18,11 +17,11 @@
   "changelog": [
     {
       "version": "1.2.0",
-      "date": "2025-09-25",
+      "date": "2025-09-25", 
       "changes": [
-        "Добавлены размеры элементов во вкладке Прицел",
-        "Исправлено сворачивание длинных классов CSS",
-        "Вкладка Пикчи открывается по умолчанию"
+        "Исправлены пути к файлам",
+        "Добавлен файл стилей",
+        "Welcome страница работает"
       ]
     }
   ]
