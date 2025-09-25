@@ -1,4 +1,4 @@
-// popup.js - Простой popup
+// popup.js - с поддержкой динамических обновлений
 function updateButton(isActive) {
     const btn = document.getElementById('toggle-btn');
     if (!btn) return;
@@ -19,9 +19,8 @@ function toggleInspector() {
         chrome.tabs.sendMessage(tabs[0].id, {action: 'toggle_inspector'}, response => {
             if (chrome.runtime.lastError) {
                 console.log('Content script не загружен');
-                return;
-            }
-            if (response) {
+                updateButton(false);
+            } else if (response) {
                 updateButton(response.active);
             }
         });
@@ -35,12 +34,25 @@ function openGlossary() {
     });
 }
 
-function showUpdateInfo() {
+function forceUpdate() {
     const btn = document.getElementById('update-btn');
     if (btn) {
-        btn.textContent = '✅ Актуально v1.0.0';
+        btn.textContent = '⏳ Обновляем...';
         btn.disabled = true;
     }
+    
+    chrome.runtime.sendMessage({ action: 'forceUpdate' }, (response) => {
+        if (btn) {
+            btn.disabled = false;
+            if (response && response.success) {
+                btn.textContent = '✅ Обновлено!';
+                setTimeout(() => btn.textContent = '🔄 Проверить обновления', 2000);
+            } else {
+                btn.textContent = '❌ Ошибка';
+                setTimeout(() => btn.textContent = '🔄 Проверить обновления', 2000);
+            }
+        }
+    });
 }
 
 // События
@@ -56,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             openGlossary();
         });
     }
-    if (updateBtn) updateBtn.addEventListener('click', showUpdateInfo);
+    if (updateBtn) updateBtn.addEventListener('click', forceUpdate);
 
     // Проверка состояния при открытии popup
     chrome.tabs.query({active: true, currentWindow: true}, tabs => {
@@ -64,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
         chrome.tabs.sendMessage(tabs[0].id, {action: 'get_status'}, response => {
             if (!chrome.runtime.lastError && response) {
                 updateButton(response.active);
+            } else {
+                updateButton(false);
             }
         });
     });
