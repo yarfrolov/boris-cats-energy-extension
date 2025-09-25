@@ -1,17 +1,20 @@
 {
   "manifest_version": 3,
   "name": "Boris the cat's energy",
-  "version": "1.2.2",
+  "version": "6.6.6",
   "description": "Для менеджеров, дизайнеров и тех, кто не работает с кодом.",
   "permissions": [
     "activeTab",
     "scripting",
-    "tabs",
-    "storage"
+    "storage",
+    "alarms"
   ],
   "host_permissions": [
-    "https://yarfrolov.github.io/*"
+    "https://*.github.io/*"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",
@@ -20,17 +23,11 @@
   "action": {
     "default_popup": "popup.html"
   },
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content-loader.js"
-      ]
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
     }
   ]
 }

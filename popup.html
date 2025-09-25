@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Энергия кота Бориса</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: white;
+            color: #1d1d1f;
+            font-size: 14px;
+            width: 280px;
+            user-select: none;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.022em;
+        }
+        
+        .subtitle {
+            font-size: 13px;
+            color: #86868b;
+            margin: 0;
+            font-weight: 400;
+        }
+        
+        .button {
+            width: 100%;
+            background: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+            font-family: inherit;
+            margin-bottom: 16px;
+        }
+        
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+        
+        .button:active {
+            transform: translateY(0);
+        }
+        
+        .footer {
+            text-align: center;
+            padding-top: 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .footer a {
+            color: #007AFF;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">Энергия кота Бориса</h1>
+    </div>
+    
+    <button id="toggle-btn" class="button">🔗 Активировать</button>
+    
+    <div class="footer">
+        <a href="https://cdn.m2.ru/assets/file-upload-server/58588a078f988bde49e948814e84ec9c.html" target="_blank" class="small-link">
+            🔗 Глоссарий
+        </a>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>
