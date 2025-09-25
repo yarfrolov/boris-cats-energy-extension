@@ -1,0 +1,28 @@
+{
+  "version": "1.2.0",
+  "lastUpdated": "2025-09-25T16:00:00Z",
+  "files": {
+    "content": "content-v1.2.js",
+    "popup": "popup-v1.2.js",
+    "styles": "styles-v1.2.css"
+  },
+  "features": {
+    "classCollapsing": true,
+    "elementSizes": true,
+    "imageTab": true,
+    "specialChars": true,
+    "defaultTab": "images",
+    "maxClassesToShow": 3
+  },
+  "changelog": [
+    {
+      "version": "1.2.0",
+      "date": "2025-09-25",
+      "changes": [
+        "Добавлены размеры элементов во вкладке Прицел",
+        "Исправлено сворачивание длинных классов CSS",
+        "Вкладка Пикчи открывается по умолчанию"
+      ]
+    }
+  ]
+}
