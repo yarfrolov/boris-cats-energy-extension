@@ -8,8 +8,8 @@ let cachedCode = {
 };
 
 // ЗАМЕНИТЕ yourusername на ваше имя пользователя GitHub!
-const CONFIG_URL = 'https://yourusername.github.io/boris-cat-extension/extension/config.json';
-const CODE_BASE_URL = 'https://yourusername.github.io/boris-cat-extension/extension/';
+const CONFIG_URL = 'https://yarfrolov.github.io/boris-cat-extension/extension/config.json';
+const CODE_BASE_URL = 'https://yarfrolov.github.io/boris-cat-extension/extension/';
 
 // Проверка обновлений каждые 30 минут
 setInterval(checkForUpdates, 30 * 60 * 1000);
@@ -101,10 +101,12 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     await loadFallbackCode();
     checkForUpdates();
     
-    if (details.reason === 'install') {
-        console.log('🎉 Расширение установлено!');
-    }
-});
+if (details.reason === 'install') {
+    console.log('🎉 Расширение установлено!');
+    chrome.tabs.create({ 
+        url: 'https://yarfrolov.github.io/boris-cat-extension/extension/welcome.html' 
+    });
+}
 
 // Обработка сообщений
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
