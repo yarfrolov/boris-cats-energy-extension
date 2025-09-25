@@ -8,7 +8,7 @@ const extensionDir = path.join(__dirname, 'extension');
 const distDir = path.join(__dirname, 'dist');
 
 // URL для GitHub Pages
-const GITHUB_PAGES_URL = 'https://yourname.github.io/boris-cats-energy-extension';
+const GITHUB_PAGES_URL = 'https://yarfrolov.github.io/boris-cats-energy-extension';
 
 // Функция для загрузки файла с GitHub Pages
 async function downloadFile(url, destPath) {
