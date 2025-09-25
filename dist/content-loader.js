@@ -1,4 +1,3 @@
-// content-loader.js - Полный статический инспектор
 let overlayElements = null;
 
 function createInspector() {
@@ -6,218 +5,6 @@ function createInspector() {
     window.__inspectorInitialized = true;
 
     console.log('Создаем инспектор');
-
-    // Создаем стили
-    const style = document.createElement('style');
-    style.textContent = `
-        .inspector-images-box {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
-            overflow-y: auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-left: 1px solid rgba(0, 0, 0, 0.04);
-            box-shadow: -2px 0 32px rgba(0, 0, 0, 0.08);
-            color: #1d1d1f;
-            font-size: 14px;
-            padding: 24px;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 100vh;
-            z-index: 2147483648;
-            pointer-events: auto;
-            display: flex;
-            flex-direction: column;
-            user-select: none;
-        }
-
-        .segmented-control {
-            display: flex;
-            border-radius: 12px;
-            background: #f5f5f7;
-            padding: 2px;
-            margin-bottom: 32px;
-            user-select: none;
-            border: 1px solid #e5e5e7;
-        }
-
-        .segmented-control button {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #86868B;
-            font-weight: 400;
-            font-size: 13px;
-            padding: 8px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-
-        .segmented-control button.active {
-            background: white;
-            color: #1d1d1f;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-            font-weight: 500;
-        }
-
-        .tab-content {
-            flex: 1;
-            overflow-y: auto;
-            font-size: 14px;
-            color: #1d1d1f;
-        }
-
-        .section-title {
-            font-size: 17px;
-            font-weight: 600;
-            color: #1d1d1f;
-            margin: 0 0 12px 0;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .info-label {
-            color: #86868B;
-            font-weight: 400;
-        }
-
-        .info-value {
-            color: #1d1d1f;
-            font-weight: 500;
-            font-family: "SF Mono", Monaco, monospace;
-            font-size: 13px;
-        }
-
-        .color-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .color-preview {
-            width: 16px;
-            height: 16px;
-            border-radius: 3px;
-            margin: 0 8px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .spacing-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .spacing-item {
-            background: #f5f5f7;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 500;
-            color: #1d1d1f;
-            text-align: center;
-            border: 1px solid #e5e5e7;
-            font-family: "SF Mono", Monaco, monospace;
-        }
-
-        .inspector-highlight {
-            position: fixed;
-            border-radius: 4px;
-            box-shadow: 0 0 0 2px #007AFF;
-            background: rgba(0, 122, 255, 0.1);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.15s ease;
-            z-index: 2147483649;
-        }
-
-        .media-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            user-select: none;
-        }
-
-        .media-item img {
-            max-height: 80px;
-            max-width: 80px;
-            margin-right: 16px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            object-fit: contain;
-            background: white;
-            border: 1px solid #e5e5e7;
-        }
-
-        .media-item a {
-            color: #007AFF;
-            text-decoration: none;
-            word-break: break-word;
-            font-size: 13px;
-            font-weight: 400;
-            font-family: "SF Mono", Monaco, monospace;
-        }
-
-        .media-item a:hover {
-            text-decoration: underline;
-        }
-
-        .special-chars-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            user-select: none;
-        }
-
-        .special-char-btn {
-            width: 100%;
-            height: 72px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e5e5e7;
-            color: #1d1d1f;
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-
-        .special-char-btn:hover {
-            background: #f5f5f7;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .special-char-symbol {
-            font-size: 24px;
-            font-weight: 400;
-            margin-bottom: 4px;
-            user-select: text;
-            color: #1d1d1f;
-        }
-
-        .special-char-name {
-            font-size: 10px;
-            color: #86868B;
-            user-select: none;
-            font-weight: 400;
-        }
-    `;
-    document.head.appendChild(style);
 
     // Overlay
     const overlay = document.createElement('div');
@@ -254,7 +41,7 @@ function createInspector() {
     tabs.forEach(tab => {
         const btn = document.createElement('button');
         btn.textContent = tab.label;
-        // По умолчанию активна вкладка "Пикчи"
+        // ИЗМЕНЕНО: по умолчанию активна вкладка "Пикчи"
         if (tab.id === 'images') btn.classList.add('active');
         btn.onclick = () => setActiveTab(tab.id);
         tabBar.appendChild(btn);
@@ -265,11 +52,13 @@ function createInspector() {
     // Content containers
     const inspectorContainer = document.createElement('div');
     inspectorContainer.className = 'tab-content';
+    // ИЗМЕНЕНО: по умолчанию скрыт инспектор
     inspectorContainer.style.display = 'none';
-    inspectorContainer.innerHTML = '<div class="section-title">Выберите элемент</div><p>Наведите курсор на элемент для просмотра информации</p>';
+    inspectorContainer.innerHTML = '<div class="section-title">Выберите элемент</div><div style="color: #86868B;">Наведите курсор на элемент для просмотра информации</div>';
 
     const imagesContainer = document.createElement('div');
     imagesContainer.className = 'tab-content';
+    // ИЗМЕНЕНО: по умолчанию показан контейнер изображений
     imagesContainer.style.display = 'block';
 
     const specialContainer = document.createElement('div');
@@ -298,6 +87,84 @@ function createInspector() {
         }
     }
 
+    // НОВАЯ ФУНКЦИЯ: форматирование класса с сворачиванием
+    function formatClassName(className) {
+        if (!className || className === 'Нет класса') {
+            return 'Нет класса';
+        }
+
+        // Разбиваем классы на отдельные элементы
+        const classes = className.split(' ').filter(c => c.trim());
+        
+        if (classes.length <= 3) {
+            return className;
+        }
+
+        // Если классов больше 3, показываем первые 3 + счетчик
+        const visibleClasses = classes.slice(0, 3);
+        const hiddenCount = classes.length - 3;
+        
+        return {
+            display: `${visibleClasses.join(' ')} +${hiddenCount}`,
+            full: className,
+            isCollapsed: true
+        };
+    }
+
+    // Функция для получения вложенных элементов
+    function getNestedElements(element, maxDepth = 3, currentDepth = 0) {
+        if (currentDepth >= maxDepth) return [];
+        
+        const children = Array.from(element.children);
+        const nestedElements = [];
+        
+        children.forEach(child => {
+            if (child.tagName && !panel.contains(child)) {
+                const childInfo = {
+                    tagName: child.tagName.toLowerCase(),
+                    className: child.className || '',
+                    id: child.id || '',
+                    textContent: child.textContent ? child.textContent.slice(0, 50) + (child.textContent.length > 50 ? '...' : '') : '',
+                    depth: currentDepth + 1,
+                    hasChildren: child.children.length > 0
+                };
+                nestedElements.push(childInfo);
+                
+                // Рекурсивно получаем вложенные элементы
+                if (child.children.length > 0 && currentDepth + 1 < maxDepth) {
+                    nestedElements.push(...getNestedElements(child, maxDepth, currentDepth + 1));
+                }
+            }
+        });
+        
+        return nestedElements;
+    }
+
+    // Функция для создания HTML структуры вложенных элементов
+    function createNestedElementsHTML(nestedElements) {
+        if (nestedElements.length === 0) {
+            return '<div class="nested-elements"><div style="color: #86868B; text-align: center; padding: 20px;">Нет вложенных элементов</div></div>';
+        }
+        
+        let html = '<div class="nested-elements">';
+        
+        nestedElements.forEach(element => {
+            const indent = '  '.repeat((element.depth - 1) * 2);
+            const tagDisplay = element.className ? `${element.tagName}.${element.className}` : element.tagName;
+            const idDisplay = element.id ? `#${element.id}` : '';
+            
+            html += `<div class="nested-element">`;
+            html += `<span class="nested-element-tag">${indent}<${tagDisplay}${idDisplay}></span>`;
+            if (element.textContent && element.textContent.trim()) {
+                html += `<div class="nested-element-text">${indent}  ${element.textContent}</div>`;
+            }
+            html += `</div>`;
+        });
+        
+        html += '</div>';
+        return html;
+    }
+
     // Mouse move handler for inspector
     document.addEventListener('mousemove', (e) => {
         if (!window.__inspectorInitialized || inspectorContainer.style.display === 'none') return;
@@ -314,25 +181,34 @@ function createInspector() {
 
         const computedStyle = window.getComputedStyle(elementUnder);
         const tagName = elementUnder.tagName.toLowerCase();
-        const className = elementUnder.className || 'Нет класса';
+        const rawClassName = elementUnder.className || 'Нет класса';
         const id = elementUnder.id || 'Нет ID';
 
+        // ИЗМЕНЕНО: используем новую функцию форматирования класса
+        const formattedClass = formatClassName(rawClassName);
+        const classDisplay = typeof formattedClass === 'object' ? formattedClass.display : formattedClass;
+        
+        // НОВОЕ: получаем размеры элемента
         const elementWidth = Math.round(rect.width);
         const elementHeight = Math.round(rect.height);
+        
+        // Получаем вложенные элементы
+        const nestedElements = getNestedElements(elementUnder);
+        const nestedHTML = createNestedElementsHTML(nestedElements);
 
         inspectorContainer.innerHTML = `
             <div class="section-title">${tagName}</div>
             
             <div class="info-row">
                 <span class="info-label">Класс:</span>
-                <span class="info-value">${className}</span>
+                <span class="info-value class-value" ${typeof formattedClass === 'object' ? `data-full="${formattedClass.full}" style="cursor: pointer; color: #007AFF;"` : ''}>${classDisplay}</span>
             </div>
             
             <div class="info-row">
                 <span class="info-label">ID:</span>
                 <span class="info-value">${id}</span>
             </div>
-            
+
             <div class="info-row">
                 <span class="info-label">Размеры:</span>
                 <span class="info-value">${elementWidth}px × ${elementHeight}px</span>
@@ -350,21 +226,48 @@ function createInspector() {
             
             <div class="color-row">
                 <span class="info-label">Цвет текста:</span>
-                <div class="color-preview" style="background-color: ${computedStyle.color}"></div>
+                <div class="color-preview" style="background-color: ${computedStyle.color};"></div>
                 <span class="info-value">${computedStyle.color}</span>
             </div>
             
             <div class="color-row">
                 <span class="info-label">Цвет фона:</span>
-                <div class="color-preview" style="background-color: ${computedStyle.backgroundColor}"></div>
+                <div class="color-preview" style="background-color: ${computedStyle.backgroundColor};"></div>
                 <span class="info-value">${computedStyle.backgroundColor}</span>
             </div>
             
             <div class="spacing-grid">
-                <div class="spacing-item">PADDING<br>${computedStyle.padding}</div>
-                <div class="spacing-item">MARGIN<br>${computedStyle.margin}</div>
+                <div class="spacing-item">
+                    <div style="font-size: 9px; color: #86868B; margin-bottom: 2px;">PADDING</div>
+                    <div>${computedStyle.padding}</div>
+                </div>
+                <div class="spacing-item">
+                    <div style="font-size: 9px; color: #86868B; margin-bottom: 2px;">MARGIN</div>
+                    <div>${computedStyle.margin}</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 16px;">
+                <div class="section-title">Вложенные элементы</div>
+                ${nestedHTML}
             </div>
         `;
+
+        // НОВОЕ: добавляем обработчик клика для разворачивания класса
+        const classValue = inspectorContainer.querySelector('.class-value');
+        if (classValue && classValue.hasAttribute('data-full')) {
+            let isExpanded = false;
+            classValue.addEventListener('click', () => {
+                if (isExpanded) {
+                    classValue.textContent = formattedClass.display;
+                    classValue.style.color = '#007AFF';
+                } else {
+                    classValue.textContent = formattedClass.full;
+                    classValue.style.color = '#1d1d1f';
+                }
+                isExpanded = !isExpanded;
+            });
+        }
     });
 
     // Images tab
@@ -380,7 +283,7 @@ function createInspector() {
         console.log('Найдено изображений:', imgs.length);
 
         if (imgs.length === 0) {
-            imagesContainer.innerHTML += '<p>На странице нет изображений.</p>';
+            imagesContainer.innerHTML += '<div style="color: #86868B; text-align: center; padding: 20px;">На странице нет изображений.</div>';
             return;
         }
 
@@ -411,10 +314,10 @@ function createInspector() {
             sizeSpan.style.color = '#86868B';
 
             const naturalImg = new Image();
-            naturalImg.onload = function() {
+            naturalImg.onload = function () {
                 sizeSpan.textContent = `${naturalImg.naturalWidth}px × ${naturalImg.naturalHeight}px`;
             };
-            naturalImg.onerror = function() {
+            naturalImg.onerror = function () {
                 sizeSpan.textContent = '';
             };
             naturalImg.src = src;
@@ -441,7 +344,8 @@ function createInspector() {
         { char: '–', name: 'Кор. тире' },
         { char: '—', name: 'Дл. тире' },
         { char: '©', name: 'Копирайт' },
-        { char: '®', name: 'Рег. знак' }
+        { char: '®', name: 'Рег. знак' },
+        { char: '·', name: 'Пункт' }
     ];
 
     const specialGrid = document.createElement('div');
@@ -478,7 +382,7 @@ function createInspector() {
 
     specialContainer.appendChild(specialGrid);
 
-    overlayElements = { overlay, highlightBox, panel, style };
+    overlayElements = { overlay, highlightBox, panel };
     console.log('Инспектор создан, активна вкладка "Пикчи"');
 }
 
