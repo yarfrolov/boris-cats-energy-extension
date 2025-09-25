@@ -1,8 +1,8 @@
 {
-  "version": "1.2.0", 
+  "version": "1.2.1", 
   "lastUpdated": "2025-09-25T17:00:00Z",
   "files": {
-    "content": "content-v1.2.js",
+    "content": "content-v1.2.1.js",
     "popup": "popup-v1.2.js", 
     "styles": "styles-v1.2.css"
   },
@@ -16,12 +16,10 @@
   },
   "changelog": [
     {
-      "version": "1.2.0",
+      "version": "1.2.1",
       "date": "2025-09-25", 
       "changes": [
-        "Исправлены пути к файлам",
-        "Добавлен файл стилей",
-        "Welcome страница работает"
+        "Добавлен новый знак"
       ]
     }
   ]
