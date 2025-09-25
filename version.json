@@ -1,0 +1,11 @@
+{
+  "version": "6.6.6",
+  "files": [
+    "content.js",
+    "popup.html",
+    "popup.js",
+    "styles.css",
+    "background.js"
+  ],
+  "lastUpdated": "2023-09-01T12:00:00Z"
+}
