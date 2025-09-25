@@ -5,7 +5,7 @@
   "description": "Для менеджеров, дизайнеров и тех, кто не работает с кодом.",
   "permissions": [
     "activeTab",
-    "scripting", 
+    "scripting",
     "tabs",
     "storage"
   ],
