@@ -7,9 +7,8 @@ let cachedCode = {
     version: null
 };
 
-// ЗАМЕНИТЕ yourusername на ваше имя пользователя GitHub!
-const CONFIG_URL = 'https://yarfrolov.github.io/boris-cat-extension/extension/config.json';
-const CODE_BASE_URL = 'https://yarfrolov.github.io/boris-cat-extension/extension/';
+const CONFIG_URL = 'https://yarfrolov.github.io/boris-cats-energy-extension/extension/config.json';
+const CODE_BASE_URL = 'https://yarfrolov.github.io/boris-cats-energy-extension/extension/';
 
 // Проверка обновлений каждые 30 минут
 setInterval(checkForUpdates, 30 * 60 * 1000);
@@ -85,6 +84,8 @@ async function loadFallbackCode() {
         if (result.cachedCode) {
             cachedCode = result.cachedCode;
             console.log('📱 Используем кэшированный код версии:', cachedCode.version);
+        } else {
+            console.log('⚠️ Кэшированный код не найден');
         }
     } catch (error) {
         console.error('❌ Ошибка загрузки резервного кода:', error);
@@ -101,12 +102,13 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     await loadFallbackCode();
     checkForUpdates();
     
-if (details.reason === 'install') {
-    console.log('🎉 Расширение установлено!');
-    chrome.tabs.create({ 
-        url: 'https://yarfrolov.github.io/boris-cat-extension/extension/welcome.html' 
-    });
-}
+    if (details.reason === 'install') {
+        console.log('🎉 Расширение установлено!');
+        chrome.tabs.create({ 
+            url: 'https://yarfrolov.github.io/boris-cats-energy-extension/extension/welcome.html' 
+        });
+    }
+});
 
 // Обработка сообщений
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
