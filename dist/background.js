@@ -1,4 +1,4 @@
-// background.js - Динамическая загрузка кода с GitHub Pages
+// background.js - Динамическая загрузка с безопасной инъекцией
 let cachedCode = {
     content: null,
     popup: null,
@@ -92,6 +92,37 @@ async function loadFallbackCode() {
     }
 }
 
+// НОВАЯ ФУНКЦИЯ: безопасная инъекция content script
+async function injectContentScript(tabId) {
+    try {
+        if (cachedCode.content) {
+            console.log('💉 Инжектируем динамический content script в таб:', tabId);
+            
+            await chrome.scripting.executeScript({
+                target: { tabId: tabId },
+                func: (contentCode) => {
+                    // Создаем script элемент
+                    const script = document.createElement('script');
+                    script.textContent = contentCode;
+                    (document.head || document.documentElement).appendChild(script);
+                    
+                    // Удаляем после выполнения
+                    setTimeout(() => {
+                        if (script.parentNode) {
+                            script.parentNode.removeChild(script);
+                        }
+                    }, 100);
+                },
+                args: [cachedCode.content]
+            });
+            
+            console.log('✅ Content script инжектирован');
+        }
+    } catch (error) {
+        console.error('❌ Ошибка инъекции content script:', error);
+    }
+}
+
 // Инициализация
 chrome.runtime.onStartup.addListener(async () => {
     await loadFallbackCode();
@@ -125,6 +156,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         return true;
     } else if (message.action === 'getVersion') {
         sendResponse({version: cachedCode.version || '1.0.0'});
+    } else if (message.action === 'injectContentScript') {
+        // НОВОЕ: безопасная инъекция
+        if (message.tabId) {
+            injectContentScript(message.tabId);
+        }
+        sendResponse({success: true});
     }
     return true;
 });
