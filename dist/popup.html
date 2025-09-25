@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Энергия кота Бориса</title>
+    <meta charset="utf-8">
     <style>
         body {
+            width: 320px;
+            padding: 0;
             margin: 0;
-            padding: 20px;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui;
-            background: white;
-            color: #1d1d1f;
-            font-size: 14px;
-            width: 280px;
-            user-select: none;
+            font-family: -apple-system, BlinkMacSystemFont, system-ui;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .container {
+            padding: 24px;
         }
         
         .header {
@@ -22,118 +22,68 @@
         }
         
         .title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            color: #1d1d1f;
-            margin: 0 0 4px 0;
-            letter-spacing: -0.022em;
-        }
-        
-        .subtitle {
-            font-size: 13px;
-            color: #86868b;
             margin: 0;
-            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .button {
             width: 100%;
-            background: #007AFF;
-            color: white;
+            padding: 14px 20px;
             border: none;
             border-radius: 12px;
-            padding: 14px 20px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
-            font-family: inherit;
-            margin-bottom: 16px;
+            transition: all 0.2s ease;
+            margin-bottom: 12px;
+            background: #007AFF;
+            color: white;
         }
         
         .button:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
         
-        .button:active {
-            transform: translateY(0);
-        }
-        
-        .button.secondary {
-            background: #F5F5F7;
-            color: #1d1d1f;
+        .secondary-button {
+            background: rgba(255, 255, 255, 0.2);
             font-size: 14px;
             padding: 10px 16px;
         }
         
-        .button.secondary:hover {
-            background: #E5E5E7;
-            box-shadow: none;
-        }
-        
         .footer {
             text-align: center;
-            padding-top: 16px;
-            border-top: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-top: 16px;
         }
         
         .footer a {
-            color: #007AFF;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            font-size: 13px;
-            font-weight: 400;
+            font-size: 12px;
         }
         
         .footer a:hover {
-            text-decoration: underline;
-        }
-        
-        #loading-indicator {
-            display: none;
-            text-align: center;
-            color: #86868B;
-            font-size: 13px;
-            padding: 20px;
-        }
-        
-        .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #E5E5E7;
-            border-top: 2px solid #007AFF;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 8px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div id="loading-indicator">
-        <div class="spinner"></div>
-        Загружаем обновления...
-    </div>
-    
-    <div class="header">
-        <h1 class="title">Энергия кота Бориса</h1>
-        <p class="subtitle">Инспектор элементов</p>
-    </div>
-    
-    <button id="toggle-btn" class="button">🔗 Активировать</button>
-    
-    <button id="update-btn" class="button secondary">🔄 Проверить обновления</button>
-    
-    <div class="footer">
-        <a href="#" id="glossary-link">📚 Глоссарий</a>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🐱⚡ Энергия кота Бориса</h1>
+        </div>
+        
+        <button id="toggle-btn" class="button">🔗 Активировать</button>
+        <button id="update-btn" class="button secondary-button">🔄 Проверить обновления</button>
+        
+        <div class="footer">
+            <a href="#" id="glossary-link">🔗 Глоссарий CSS</a>
+        </div>
     </div>
     
     <script src="popup.js"></script>
