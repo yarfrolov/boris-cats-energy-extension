@@ -6,11 +6,7 @@
   "permissions": [
     "activeTab",
     "scripting",
-    "tabs",
-    "storage"
-  ],
-  "host_permissions": [
-    "https://yarfrolov.github.io/*"
+    "tabs"
   ],
   "icons": {
     "16": "icon16.png",
