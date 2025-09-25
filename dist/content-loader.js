@@ -1,4 +1,4 @@
-// content-loader.js - Загрузчик динамического content script
+// content-loader.js - Безопасный загрузчик динамического content script
 (async function() {
     try {
         console.log('🔄 Content loader инициализирован');
@@ -18,13 +18,23 @@
                 if (response && response.content) {
                     console.log('📥 Загружаем динамический content script версии:', response.version);
                     
-                    // Выполняем динамический код
-                    eval(response.content);
+                    // БЕЗОПАСНЫЙ СПОСОБ: создаем script element
+                    const script = document.createElement('script');
+                    script.textContent = response.content;
+                    
+                    // Добавляем в head временно
+                    (document.head || document.documentElement).appendChild(script);
+                    
+                    // Удаляем после выполнения
+                    setTimeout(() => {
+                        if (script.parentNode) {
+                            script.parentNode.removeChild(script);
+                        }
+                    }, 100);
                     
                     console.log('✅ Динамический content script загружен');
                 } else {
                     console.log('⚠️ Динамический content script недоступен, используем заглушку');
-                    // Базовая функциональность
                     loadBasicContentScript();
                 }
             } catch (error) {
