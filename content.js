@@ -344,7 +344,8 @@ function createInspector() {
         { char: '–', name: 'Кор. тире' },
         { char: '—', name: 'Дл. тире' },
         { char: '©', name: 'Копирайт' },
-        { char: '®', name: 'Рег. знак' }
+        { char: '®', name: 'Рег. знак' },
+        { char: '·', name: 'Пункт' }
     ];
 
     const specialGrid = document.createElement('div');
