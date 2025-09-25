@@ -1,8 +1,8 @@
 {
-  "version": "1.2.1", 
-  "lastUpdated": "2025-09-25T18:34:00Z",
+  "version": "1.2.2", 
+  "lastUpdated": "2025-09-25T18:39:00Z",
   "files": {
-    "content": "content-v1.2.1.js",
+    "content": "content-v1.2.2.js",
     "popup": "popup-v1.2.js", 
     "styles": "styles-v1.2.css"
   },
@@ -16,10 +16,11 @@
   },
   "changelog": [
     {
-      "version": "1.2.1",
+      "version": "1.2.2",
       "date": "2025-09-25", 
       "changes": [
-        "Добавлен новый знак"
+         "Исправлена синтаксическая ошибка",
+        "Добавлен символ точки (·)"
       ]
     }
   ]
